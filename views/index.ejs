@@ -1,0 +1,33 @@
+<%- include("partials/header.ejs") %>
+<div class="cube blue">
+  <h1>To-Do App</h1>
+</div>
+<div class="box">
+  <% todoList.forEach(todoW => { %>
+  <div class="item">
+    <input
+      type="checkbox"
+      name="todoW"
+      value="<%= todoW.id %>"
+      onclick="deleteWork('<%= todoW.id %>')"
+    />
+    <p><%= todoW.task %></p>
+  </div>
+  <% }); %>
+  <form class="task" action="/addWork" method="post">
+    <div class="itemless">
+      <input type="text" name="taskWork" placeholder="New Task" />
+    </div>
+    <button type="submit" value="ok">+</button>
+  </form>
+</div>
+<script>
+  function deleteWork(todoWorkId) {
+    fetch(`/deleteWork/${todoWorkId}`, { method: "DELETE" })
+      .then(() => window.location.reload())
+      .catch((err) =>
+        console.error("An error occurred during the deletion process:", err)
+      );
+  }
+</script>
+<%- include("partials/footer.ejs") %>
