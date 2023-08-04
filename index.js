@@ -24,9 +24,12 @@ function deleteTodo(listName, todoId) {
   todoLists[listName] = list.filter((todo) => todo.id !== todoId);
 }
 
-// Work
 app.get("/", (req, res) => {
   res.render("index.ejs", { todoList: todoLists.work });
+});
+
+app.get("/daily", (req, res) => {
+  res.render("daily.ejs", { todoList: todoLists.daily });
 });
 
 app.post("/addWork", (req, res) => {
@@ -34,19 +37,14 @@ app.post("/addWork", (req, res) => {
   res.redirect("/");
 });
 
-app.delete("/deleteWork/:id", (req, res) => {
-  deleteTodo("work", parseInt(req.params.id));
-  res.sendStatus(204);
-});
-
-// Daily
-app.get("/daily", (req, res) => {
-  res.render("daily.ejs", { todoList: todoLists.daily });
-});
-
 app.post("/addDaily", (req, res) => {
   addTodo("daily", req.body.taskDaily);
   res.redirect("/daily");
+});
+
+app.delete("/deleteWork/:id", (req, res) => {
+  deleteTodo("work", parseInt(req.params.id));
+  res.sendStatus(204);
 });
 
 app.delete("/deleteDaily/:id", (req, res) => {

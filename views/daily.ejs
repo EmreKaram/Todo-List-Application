@@ -1,33 +1,57 @@
 <%- include("partials/header.ejs") %>
-<div class="cube blue">
-  <h1>To-Do App</h1>
-</div>
-<div class="box">
-  <% todoList.forEach(todoD => { %>
-  <div class="item">
-    <input
-      type="checkbox"
-      name="todoD"
-      value="<%= todoD.id %>"
-      onclick="deleteDaily('<%= todoD.id %>' )"
-    />
-    <p><%= todoD.task %></p>
-  </div>
-  <% }); %>
-  <form class="task" action="/addDaily" method="post">
-    <div class="itemless">
-      <input type="text" name="taskDaily" placeholder="New Task" />
+<div class="container" id="page-content">
+  <div class="row container d-flex justify-content-center">
+    <div class="col-md-12 justify-content-center">
+      <div class="card px-3">
+        <div class="card-body">
+          <h4 class="card-title">To-do List App</h4>
+          <form class="add-items d-flex" action="/addDaily" method="post">
+            <input
+              type="text"
+              class="form-control todo-list-input"
+              name="taskDaily"
+              placeholder="Write a new daily to do..."
+            />
+            <button
+              class="add btn btn-primary font-weight-bold todo-list-add-btn"
+              type="submit"
+              value="ok"
+            >
+              Add
+            </button>
+          </form>
+          <div class="list-wrapper">
+            <ul class="d-flex flex-column-reverse todo-list">
+              <% todoList.forEach(todoD => { %>
+              <li>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input
+                      class="checkbox"
+                      type="checkbox"
+                      name="todoD"
+                      value="<%= todoD.id %>"
+                      onclick="deleteDaily('<%= todoD.id %>')"
+                    />
+                  </label>
+                </div>
+                <p><%= todoD.task %></p>
+              </li>
+              <% }); %>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <button type="submit" value="ok">+</button>
-  </form>
+  </div>
+  <script>
+    function deleteDaily(todoDailyId) {
+      fetch(`/deleteDaily/${todoDailyId}`, { method: "DELETE" })
+        .then(() => window.location.reload())
+        .catch((err) =>
+          console.error("An error occurred during the deletion process:", err)
+        );
+    }
+  </script>
 </div>
-<script>
-  function deleteDaily(todoDailyId) {
-    fetch(`/deleteDaily/${todoDailyId}`, { method: "DELETE" })
-      .then(() => window.location.reload())
-      .catch((err) =>
-        console.error("An error occurred during the deletion process:", err)
-      );
-  }
-</script>
 <%- include("partials/footer.ejs") %>
