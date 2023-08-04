@@ -1,45 +1,45 @@
 <%- include("partials/header.ejs") %>
 <div class="container" id="page-content">
-  <div class="row container d-flex justify-content-center">
-    <div class="col-md-12 justify-content-center">
-      <div class="card px-3">
-        <div class="card-body">
-          <h4 class="card-title">To-do List App</h4>
-          <form class="add-items d-flex" action="/addWork" method="post">
-            <input
-              type="text"
-              class="form-control todo-list-input"
-              name="taskWork"
-              placeholder="Write a new work to do..."
-            />
-            <button
-              class="add btn btn-primary font-weight-bold todo-list-add-btn"
-              type="submit"
-              value="ok"
-            >
-              Add
-            </button>
-          </form>
-          <div class="list-wrapper">
-            <ul class="d-flex flex-column-reverse todo-list">
-              <% todoList.forEach(todoW => { %>
-              <li>
-                <div class="form-check">
-                  <label class="form-check-label">
-                    <input
-                      class="checkbox"
-                      type="checkbox"
-                      name="todoW"
-                      value="<%= todoW.id %>"
-                      onclick="deleteWork('<%= todoW.id %>')"
-                    />
-                  </label>
-                </div>
+  <div class="col-md-12 justify-content-center">
+    <div class="card px-3">
+      <div class="card-body">
+        <h4 class="card-title">To-do List App</h4>
+        <form class="add-items d-flex" action="/addWork" method="post">
+          <input
+            type="text"
+            class="form-control todo-list-input"
+            name="taskWork"
+            placeholder="Write a new work to do..."
+          />
+          <button
+            class="add btn btn-primary font-weight-bold todo-list-add-btn"
+            type="submit"
+            value="ok"
+          >
+            Add
+          </button>
+        </form>
+        <div class="list-wrapper">
+          <ul class="d-flex flex-column-reverse todo-list">
+            <% todoList.forEach(todoW => { %>
+            <li class="border-bottom border-primary">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input
+                    class="checkbox"
+                    type="checkbox"
+                    name="todoW"
+                    value="<%= todoW.id %>"
+                    onclick="deleteWork('<%= todoW.id %>')"
+                  />
+                </label>
+              </div>
+              <div class="task">
                 <p><%= todoW.task %></p>
-              </li>
-              <% }); %>
-            </ul>
-          </div>
+              </div>
+            </li>
+            <% }); %>
+          </ul>
         </div>
       </div>
     </div>

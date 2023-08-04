@@ -12,6 +12,14 @@
     />
     <title>To-Do List Application</title>
   </head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(function () {
+      var currentPageUrl = window.location.pathname;
+      $("#navW").toggleClass("active", currentPageUrl === "/");
+      $("#navD").toggleClass("active", currentPageUrl === "/daily");
+    });
+  </script>
   <nav>
     <div class="container">
       <header class="d-flex justify-content-center py-3">
@@ -26,14 +34,5 @@
       </header>
     </div>
   </nav>
-  <body>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-      $(function () {
-        var currentPageUrl = window.location.pathname;
-        $("#navW").toggleClass("active", currentPageUrl === "/");
-        $("#navD").toggleClass("active", currentPageUrl === "/daily");
-      });
-    </script>
-  </body>
+  <body></body>
 </html>
